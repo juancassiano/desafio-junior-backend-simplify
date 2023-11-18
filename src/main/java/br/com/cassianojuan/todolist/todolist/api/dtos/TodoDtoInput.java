@@ -1,7 +1,7 @@
 package br.com.cassianojuan.todolist.todolist.api.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class TodoDtoInput{
   @NotBlank
@@ -9,7 +9,7 @@ public class TodoDtoInput{
   @NotBlank
   String descricao; 
   boolean realizado; 
-  @NotNull
+  @Positive
   int prioridade;
 
   
