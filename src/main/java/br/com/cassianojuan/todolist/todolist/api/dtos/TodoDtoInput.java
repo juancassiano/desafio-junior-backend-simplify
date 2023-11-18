@@ -1,9 +1,15 @@
 package br.com.cassianojuan.todolist.todolist.api.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class TodoDtoInput{
+  @NotBlank
   String nome; 
+  @NotBlank
   String descricao; 
   boolean realizado; 
+  @NotNull
   int prioridade;
 
   
