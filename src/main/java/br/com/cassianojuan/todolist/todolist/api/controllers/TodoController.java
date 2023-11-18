@@ -3,6 +3,7 @@ package br.com.cassianojuan.todolist.todolist.api.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,15 +42,17 @@ public class TodoController {
   }
 
   @GetMapping
-  List<TodoDtoModel> list(){
+  public CollectionModel<TodoDtoModel> list(){
     List<Todo> todos = todoService.list();
-    return todos.stream()
+    List<TodoDtoModel> todoDtoModels = todos.stream()
       .map(todoMapper::toModel)
       .collect(Collectors.toList());
+
+      return CollectionModel.of(todoDtoModels);
   }
 
     @GetMapping("/{id}")
-    TodoDtoModel find(@PathVariable Long id){
+    public TodoDtoModel find(@PathVariable Long id){
     try{
       Todo todoAtual = todoService.findTodo(id);
       return todoMapper.toModel(todoAtual);
