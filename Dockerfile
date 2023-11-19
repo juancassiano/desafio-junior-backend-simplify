@@ -3,13 +3,15 @@ FROM ubuntu:latest AS build
 RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 
-RUN apt-get install mysql-server -y
-RUN service mysql start --skip-grant-tables && \
-    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY '111093'; FLUSH PRIVILEGES;" && \
-    service mysql stop
+FROM mysql/mysql-server:8.0.17
 
-EXPOSE 3306
-CMD ["sh", "-c", "sleep 10 && service mysql start && java -jar app.jar"]
+RUN mkdir -p /var/lib/mysql/backups
+
+CMD mysqldump -h "$MYSQL_HOST" -u "root" --password="111093" \
+    --single-transaction \
+    --result-file=/var/lib/mysql/backups/backup.$(date +%F.%T).sql \
+    --all-databases
+
 
 COPY . .
 
@@ -22,4 +24,3 @@ EXPOSE 8080
 COPY --from=build /target/todo-list-1.0.0.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
-CMD ["sh", "-c", "wait-for-it.sh mysql:3306 -- java -jar app.jar"]
