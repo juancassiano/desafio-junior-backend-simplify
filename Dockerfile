@@ -40,4 +40,4 @@ EXPOSE 8080
 # Entrypoint command with script to wait for MySQL
 COPY wait-for-mysql.sh /app/wait-for-mysql.sh
 RUN chmod +x /app/wait-for-mysql.sh
-CMD ["sh", "-c", "./wait-for-mysql.sh && java -jar app.jar"]
+CMD ["./wait-for-mysql.sh", "mysql-init", "java", "-jar", "app.jar"]
