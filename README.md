@@ -44,9 +44,6 @@ $ java -jar target/todolist-0.0.1-SNAPSHOT.jar
 A API poderá ser acessada em [localhost:8080](http://localhost:8080).
 O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
-No Application.properties temos uma configuração diferente para subir a aplicação, e outra para executar os teste (devido ao conflito encontrado com o flyway (instruções no próprio application.properties))
-
-
 ## API Endpoints
 
 Para fazer as requisições HTTP abaixo, foi utilizada a ferramenta [POSTMAN](https://www.postman.com/):
