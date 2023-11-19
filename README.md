@@ -12,9 +12,9 @@ API para gerenciar tarefas (CRUD) que faz parte [desse desafio](https://github.c
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 - [SpringDoc OpenAPI 3](https://springdoc.org/v2/#spring-webflux-support)
 - [Mysql](https://dev.mysql.com/downloads/)
-- TESTES
-- FLYWAY
-- HATEOAS
+- [TESTES](https://www.youtube.com/watch?v=N1UkkK4jIHM)
+- [FLYWAY](https://flywaydb.org/) 
+- [HATEOAS - HAL Specification](https://docs.spring.io/spring-hateoas/docs/current/reference/html/)
 
 ## Práticas adotadas
 
