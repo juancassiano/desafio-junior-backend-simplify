@@ -6,7 +6,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
 
-import br.com.cassianojuan.todolist.todolist.api.controllers.TodoController;
+import br.com.cassianojuan.todolist.todolist.api.controller.TodoController;
 import br.com.cassianojuan.todolist.todolist.api.dtos.TodoDtoInput;
 import br.com.cassianojuan.todolist.todolist.api.dtos.TodoDtoModel;
 import br.com.cassianojuan.todolist.todolist.domain.entity.Todo;
