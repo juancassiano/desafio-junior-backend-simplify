@@ -7,7 +7,7 @@ FROM mysql/mysql-server:8.0.17
 
 RUN mkdir -p /var/lib/mysql/backups
 
-CMD mysqldump -h "$MYSQL_HOST" -u "root" --password="111093" \
+CMD mysqldump -h "localhost" -u "root" --password="111093" \
     --single-transaction \
     --result-file=/var/lib/mysql/backups/backup.$(date +%F.%T).sql \
     --all-databases
