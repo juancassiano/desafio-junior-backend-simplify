@@ -11,8 +11,7 @@ ENV MYSQL_PASSWORD=111093
 RUN apt-get update && \
     apt-get install -y mysql-server && \
     service mysql start --skip-grant-tables && \
-    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY '111093'; FLUSH PRIVILEGES;" && \
-    service mysql stop
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY '111093'; FLUSH PRIVILEGES;"
 
 # Set the working directory
 WORKDIR /app
@@ -22,8 +21,6 @@ COPY target/todo-list-1.0.0.jar app.jar
 
 # Expose the application port
 EXPOSE 8080
-EXPOSE 3306
-
 
 # Command to run the application
-CMD ["sh", "-c", "sleep 10 && service mysql start && java -jar app.jar"]
+CMD ["java", "-jar", "app.jar"]
