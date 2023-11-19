@@ -1,26 +1,23 @@
-# Use the official OpenJDK 17 as a base image
-FROM openjdk:17-jdk-slim
+FROM ubuntu:latest AS build
 
-# Set environment variables for MySQL
-ENV MYSQL_ROOT_PASSWORD=111093
-ENV MYSQL_DATABASE=todolist
-ENV MYSQL_USER=root
-ENV MYSQL_PASSWORD=111093
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
 
-# Install MySQL
-RUN apt-get update && \
-    apt-get install -y mysql-server && \
-    service mysql start --skip-grant-tables && \
+RUN apt-get install mysql-server -y
+RUN service mysql start --skip-grant-tables && \
     mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY '111093'; FLUSH PRIVILEGES;"
 
-# Set the working directory
-WORKDIR /app
+EXPOSE 3306
+CMD ["service", "mysql", "start"]
 
-# Copy the JAR file
-COPY --from=build /target/todo-list-1.0.0.jar app.jar
+COPY . .
 
-# Expose the application port
+RUN apt-get install maven -y
+RUN mvn clean install -DskipTests
+
+FROM openjdk:17-jdk-slim
 EXPOSE 8080
 
-# Command to run the application
+COPY --from=build /target/todo-list-1.0.0.jar app.jar
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
