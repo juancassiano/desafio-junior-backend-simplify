@@ -9,7 +9,7 @@ RUN service mysql start --skip-grant-tables && \
     service mysql stop
 
 EXPOSE 3306
-CMD ["service", "mysql", "start"]
+CMD ["sh", "-c", "sleep 10 && service mysql start && java -jar app.jar"]
 
 COPY . .
 
