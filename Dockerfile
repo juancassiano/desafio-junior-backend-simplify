@@ -8,6 +8,8 @@ RUN service mysql start --skip-grant-tables && \
     mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY '111093'; FLUSH PRIVILEGES;" && \
     service mysql stop
 
+EXPOSE 3306
+CMD ["service", "mysql", "start"]
 
 COPY . .
 
