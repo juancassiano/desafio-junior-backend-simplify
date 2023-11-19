@@ -22,3 +22,4 @@ EXPOSE 8080
 COPY --from=build /target/todo-list-1.0.0.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "wait-for-it.sh mysql:3306 -- java -jar app.jar"]
