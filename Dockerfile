@@ -1,12 +1,8 @@
 # Stage 1: Build
-FROM ubuntu:latest AS build
+FROM maven:3.8.4-openjdk-17-slim AS build
 
-# Install JDK
-RUN apt-get update && \
-    apt-get install openjdk-17-jdk -y
-
-# Install Maven
-RUN apt-get install maven -y
+# Create and set the working directory
+WORKDIR /app
 
 # Copy source code
 COPY . .
@@ -14,8 +10,8 @@ COPY . .
 # Build the application
 RUN mvn clean install -DskipTests
 
-# Stage 2: Runtime
-FROM mysql/mysql-server:8.0.17
+# Stage 2: MySQL Initialization
+FROM mysql/mysql-server:8.0.17 AS mysql-init
 
 # Expose MySQL port
 EXPOSE 3306
@@ -29,14 +25,19 @@ ENV MYSQL_PASSWORD=111093
 # Copy MySQL initialization scripts
 COPY mysql-scripts/ /docker-entrypoint-initdb.d/
 
-# Stage 3: Final image with only JRE
+# Stage 3: Runtime
 FROM openjdk:17-jdk-slim
+
+# Create and set the working directory
+WORKDIR /app
+
+# Copy JAR from the build stage
+COPY --from=build /app/target/todo-list-1.0.0.jar app.jar
 
 # Expose Spring Boot application port
 EXPOSE 8080
 
-# Copy JAR from the build stage
-COPY --from=build /target/todo-list-1.0.0.jar app.jar
-
-# Entrypoint command
-CMD ["sh", "-c", "java -jar app.jar"]
+# Entrypoint command with script to wait for MySQL
+COPY wait-for-mysql.sh /app/wait-for-mysql.sh
+RUN chmod +x /app/wait-for-mysql.sh
+CMD ["sh", "-c", "./wait-for-mysql.sh && java -jar app.jar"]
