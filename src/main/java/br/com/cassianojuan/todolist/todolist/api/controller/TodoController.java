@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import br.com.cassianojuan.todolist.todolist.api.dtos.TodoDtoInput;
 import br.com.cassianojuan.todolist.todolist.api.dtos.TodoDtoModel;
@@ -26,14 +27,14 @@ public class TodoController {
     this.todoMapper = todoMapper;
   }
 
-  @PostMapping
+  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public TodoDtoModel create(@RequestBody @Valid TodoDtoInput todoInput){
     Todo createdTodo = todoService.create(todoMapper.toEntity(todoInput));
     return todoMapper.toModel(createdTodo);
   }
 
-  @GetMapping
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<TodoDtoModel> list(){
     List<Todo> todos = todoService.list();
     List<TodoDtoModel> todoDtoModels = todos.stream()
@@ -43,7 +44,7 @@ public class TodoController {
       return CollectionModel.of(todoDtoModels);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public TodoDtoModel find(@PathVariable Long id){
     try{
       Todo todoAtual = todoService.findTodo(id);
@@ -53,7 +54,7 @@ public class TodoController {
     }
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public TodoDtoModel update(@PathVariable Long id, @RequestBody @Valid TodoDtoInput todoInput){
      try{
       Todo updatedTodo = todoMapper.toEntity(todoInput);
