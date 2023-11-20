@@ -15,6 +15,7 @@ API para gerenciar tarefas (CRUD) que faz parte [desse desafio](https://github.c
 - [TESTES](https://www.youtube.com/watch?v=N1UkkK4jIHM)
 - [FLYWAY](https://flywaydb.org/) 
 - [HATEOAS - HAL Specification](https://docs.spring.io/spring-hateoas/docs/current/reference/html/)
+- [AWS](https://aws.amazon.com)
 
 ## Práticas adotadas
 
@@ -26,7 +27,7 @@ API para gerenciar tarefas (CRUD) que faz parte [desse desafio](https://github.c
 - Geração automática do Swagger com a OpenAPI 3
 - Testes Unitários e de Repositório
 - Migration orquestradas pelo Flyway
-- Deploy no Render usando dockerfile
+- Deploy na AWS criando instância EC2 e conectando ao banco RDS
 - HATEOAS (Hypermedia As The Engine Of Application State)
 
 ## Como Executar
@@ -38,11 +39,13 @@ $ ./mvnw clean package
 ```
 - Executar a aplicação:
 ```
-$ java -jar target/todolist-0.0.1-SNAPSHOT.jar
+$ java -jar target/todolist-1.0.0.jar
 ```
 
-A API poderá ser acessada em [localhost:8080](http://localhost:8080).
-O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+## Ou acessar direto a instância da aplicação
+
+A API poderá ser acessada em [ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080](http://localhost:8080).
+O Swagger poderá ser visualizado em [ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080/swagger-ui.html](http://ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080/swagger-ui.html)
 
 ## API Endpoints
 
