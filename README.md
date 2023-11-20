@@ -44,7 +44,7 @@ $ java -jar target/todolist-1.0.0.jar
 
 ## Ou acessar direto a instância da aplicação
 
-A API poderá ser acessada em [ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080](http://localhost:8080).
+A API poderá ser acessada em [ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080](http://ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080).
 O Swagger poderá ser visualizado em [ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080/swagger-ui.html](http://ec2-18-218-135-163.us-east-2.compute.amazonaws.com:8080/swagger-ui.html)
 
 ## API Endpoints
